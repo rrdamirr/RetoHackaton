@@ -1,5 +1,6 @@
 package com.banana.bananamint.domain;
 
+import com.banana.bananamint.exception.IncomeExpenseException;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -43,7 +44,14 @@ public class Income {
 
     private String status;
 
-    private boolean validarFecha() {
-        return this.enterDate != null && this.enterDate.compareTo(LocalDate.now()) <= 0;
+    private boolean validarFecha() throws IncomeExpenseException {
+        if (this.enterDate != null && this.enterDate.compareTo(LocalDate.now()) <= 0){
+           return true;
+        }
+        else {
+            throw new IncomeExpenseException("Fecha de entrada incorrecta");
+        }
+
     }
+
 }

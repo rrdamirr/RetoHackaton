@@ -8,7 +8,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface IncomeJPARepository extends JpaRepository<Income,Long> {
-//    public List<Income> findAll(Long idCustomer) throws SQLException;
 
-//    public Income save(Income income) throws SQLException;
+    //public List<Income> findAll(Long idCustomer) throws SQLException;
+
+    //public Income save(Income income) throws SQLException;
 }
