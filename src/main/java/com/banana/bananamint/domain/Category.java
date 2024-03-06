@@ -11,6 +11,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import java.util.List;
 @Entity
 @Table(name = "category")
 @Schema(name = "category", description = "Model category")
+@XmlRootElement
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,21 +31,25 @@ public class Category {
 
     @Size(min = 2, max = 60)
     @NotNull
-    @NotBlank
+    @NotBlank(message = "Debe tener valor")
+    @Schema(name = "name category", example = "presupuestos hogar", required = true)
     private String name;
 
     @Size(min = 2, max = 60)
     @NotNull
-    @NotBlank
+    @NotBlank(message = "Debe tener valor")
+    @Schema(name = "type category", example = "presupuestos bajos", required = true)
     private String type;
 
     @Size(min = 5, max = 100)
     @NotNull
-    @NotBlank
+    @NotBlank(message = "Debe tener valor")
+    @Schema(name = "description category", example = "presupuesto reforma casa", required = true)
     private String description;
 
     @DateTimeFormat
     @NotNull
+    @Schema(name = "created date category", example = "2024-02-14", required = true)
     private LocalDate createdAt;
 
     @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "category")

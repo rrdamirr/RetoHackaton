@@ -6,6 +6,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import com.banana.bananamint.exception.CustomerException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -22,6 +23,7 @@ import java.util.List;
 @Entity
 @Table(name = "customer")
 @Schema(name = "customer", description = "Model customer")
+@XmlRootElement
 public class Customer {
 
     @Id
@@ -31,21 +33,25 @@ public class Customer {
 
     @Size(min = 2, max = 60)
     @NotNull
-    @NotBlank
+    @NotBlank(message = "Debe tener valor")
+    @Schema(name = "name customer", example = "Manolo Perez Perez", required = true)
     private String name;
 
     @NotNull
-    @NotBlank
+    @NotBlank(message = "Debe tener valor")
     @Size(min = 7, max = 60)
+    @Schema(name = "email customer", example = "manoloperez@gmail.com", required = true)
     private String email;
 
     @DateTimeFormat
     @NotNull
+    @Schema(name = "birth date customer", example = "2024-02-14", required = true)
     private LocalDate birthDate;
 
     @NotNull
-    @NotBlank
+    @NotBlank(message = "Debe tener valor")
     @Size(min = 9, max = 9)
+    @Schema(name = "dni customer", example = "12345678L", required = true)
     private String dni;
 
     @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "owner")

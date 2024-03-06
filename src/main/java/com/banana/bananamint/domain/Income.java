@@ -12,6 +12,7 @@ import javax.validation.constraints.Min;
 import java.time.LocalDate;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Data
 @NoArgsConstructor
@@ -19,6 +20,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "income")
 @Schema(name = "income", description = "Model income")
+@XmlRootElement
 public class Income {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,19 +30,24 @@ public class Income {
 
     @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
+    @Schema(name = "user", example = "1", required = false)
     private Customer user;
 
     @Min(1)
+    @Schema(name = "amount", example = "100.00", required = true)
     private double amount;
 
     @DateTimeFormat
     @NotNull
+    @Schema(name = "enter date income", example = "2024-02-14", required = true)
     private LocalDate enterDate;
 
     @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
+    @Schema(name = "money to account", example = "1", required = false)
     private Account moneyTo;
 
+    @Schema(name = "status", example = "pendiente", required = true)
     private String status;
 
     private boolean validarFecha() {

@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Data
 @NoArgsConstructor
@@ -12,6 +13,7 @@ import javax.validation.constraints.Min;
 @Entity
 @Table(name = "budget")
 @Schema(name = "budget", description = "Model budget")
+@XmlRootElement
 public class Budget {
 
     @Id
@@ -22,19 +24,24 @@ public class Budget {
 
     @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
+    @Schema(name = "category", example = "reforma", required = true)
     private Category category;
 
     @Min(1)
+    @Schema(name = "amount", example = "1000.00", required = true)
     private double amount;
 
     @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
+    @Schema(name = "user", example = "1", required = false)
     private Customer user;
 
     @Min(1)
+    @Schema(name = "amount", example = "1000.00", required = true)
     private Long selected;
 
     @Min(1)
+    @Schema(name = "balance", example = "1000.00", required = true)
     private Long balance;
 
 
