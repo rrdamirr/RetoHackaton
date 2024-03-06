@@ -1,4 +1,5 @@
-/customer{cid}/goal
+/customers/{cid}/goals
 POST
 -> Json
 <- 201 Json, 404, 422, 412
+

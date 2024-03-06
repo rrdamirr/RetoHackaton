@@ -32,12 +32,17 @@ public class GoalServiceClass implements GoalService {
     @Override
     public List<Goal> add(Long idCustomer, Goal goal) throws GoalException {
         Customer aCustomer = repoCustomer.findById(idCustomer).orElseThrow(() -> new CustomerException("Cliente no encontrado"));
-        List<Goal> listGoals = aCustomer.getGoals();
-        goal.setUser(aCustomer);
-        listGoals.add(goal);
-        repoGoal.save(goal);
+        boolean validGoal = goal.validarGoal();
 
-        return listGoals;
+        if (validGoal) {
+            List<Goal> listGoals = aCustomer.getGoals();
+            goal.setUser(aCustomer);
+            listGoals.add(goal);
+            repoGoal.save(goal);
+            return listGoals;
+        } else throw new GoalException("Goal is not valid");
+
+
     }
 
     @Override

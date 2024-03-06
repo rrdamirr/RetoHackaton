@@ -50,7 +50,9 @@ public class Goal {
     @JoinColumn(name = "customer_id")
     private Customer user;
 
-    private boolean validarFecha() throws GoalException {
-        return this.targetDate != null && this.targetDate.compareTo(LocalDate.now()) <= 0;
+    public boolean validarGoal() throws GoalException {
+        if (this.targetDate != null && this.targetDate.compareTo(LocalDate.now()) <= 0)
+            return true;
+        else throw new GoalException("Target Date not valid");
     }
 }
