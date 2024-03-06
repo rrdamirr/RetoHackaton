@@ -1,6 +1,7 @@
 package com.banana.bananamint.domain;
 
 
+import com.banana.bananamint.exception.GoalException;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -49,7 +50,7 @@ public class Goal {
     @JoinColumn(name = "customer_id")
     private Customer user;
 
-    private boolean validarFecha() {
+    private boolean validarFecha() throws GoalException {
         return this.targetDate != null && this.targetDate.compareTo(LocalDate.now()) <= 0;
     }
 }

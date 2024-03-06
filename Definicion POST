@@ -1,0 +1,4 @@
+/customer{cid}/goal
+POST
+-> Json
+<- 201 Json, 404, 422, 412
