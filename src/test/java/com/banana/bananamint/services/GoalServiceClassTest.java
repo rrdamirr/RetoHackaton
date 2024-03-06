@@ -2,6 +2,7 @@ package com.banana.bananamint.services;
 
 import com.banana.bananamint.domain.Customer;
 import com.banana.bananamint.domain.Goal;
+import com.banana.bananamint.persistence.GoalJPARepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,6 +14,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,19 +31,22 @@ class GoalServiceClassTest {
     @Autowired
     private GoalServiceClass serviceGoal;
 
+    @Autowired
+    private GoalJPARepository repoGoal;
+
     @Test
     void addOK() {
         // given
 
         Goal aGoal = new Goal(null, "Ahorro", "Ahorro en mes de marzo", 300.00, "sataus", LocalDate.now(), null);
-
+        List<Goal> listGoalac = repoGoal.findAll();
         // when
-        serviceGoal.add(1L, aGoal);
+        List<Goal> listGoalnew = serviceGoal.add(1L, aGoal);
 
         System.out.println("aGoal ++++: " + aGoal);
 
         // then
-        assertThat(aGoal.getId()).isGreaterThan(0);
+        assertThat(listGoalac.size() == listGoalnew.size() + 1);
 
 
     }

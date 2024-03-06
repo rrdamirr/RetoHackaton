@@ -2,7 +2,7 @@ package com.banana.bananamint.services;
 
 import com.banana.bananamint.domain.Customer;
 import com.banana.bananamint.domain.Goal;
-import com.banana.bananamint.domain.GoalApproximation;
+import com.banana.bananamint.payload.GoalApproximation;
 import com.banana.bananamint.exception.CustomerException;
 import com.banana.bananamint.exception.GoalException;
 import com.banana.bananamint.payload.Debt;

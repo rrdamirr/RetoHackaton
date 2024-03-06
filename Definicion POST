@@ -1,5 +1,5 @@
 /customers/{cid}/goals
 POST
 -> Json
-<- 201 Json, 404, 422, 412
+<- 201 Json, 404, 400, 412
 
