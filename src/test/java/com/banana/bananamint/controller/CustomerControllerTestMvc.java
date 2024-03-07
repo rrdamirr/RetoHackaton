@@ -66,7 +66,7 @@ public class CustomerControllerTestMvc {
 
 
 //        when + then
-        mvc.perform(post("/customer/account/" + id)
+        mvc.perform(post("/customer/" + id + "/account")
                         .content(JsonUtil.asJsonString(nAccount))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)

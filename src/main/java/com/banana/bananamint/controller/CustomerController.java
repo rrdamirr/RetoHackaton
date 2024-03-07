@@ -37,7 +37,7 @@ public class CustomerController {
             @ApiResponse(responseCode = "201", description = "Successfully created"),
             @ApiResponse(responseCode = "4XX", description = "Bad request")
     })
-    @PostMapping(value = "/account/{cid}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/{cid}/account", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity abrirCuenta(
             @Parameter(name = "id", description = "customer id", example = "1", required = true)
             @PathVariable("cid") @Min(1) Long id,
