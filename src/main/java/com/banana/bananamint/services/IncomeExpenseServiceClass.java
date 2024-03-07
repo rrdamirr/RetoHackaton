@@ -47,8 +47,9 @@ public class IncomeExpenseServiceClass implements IncomeExpenseService {
     @Transactional
     public Income addIncome(Long idCustomer, Income income) throws IncomeExpenseException {
         Customer aCustomer = customerRepo.findById(idCustomer).orElseThrow(() -> new CustomerException("Cliente no encontrado"));
-        //Account aAccount = accountRepo.findById(income.getMoneyTo().getId()).orElseThrow(() -> new CustomerException("Cuenta no encontrada"));
-
+        //Account aAccount = accountRepo.findById(aCustomer.getAccounts()).orElseThrow(() -> new CustomerException("Cuenta no encontrada"));
+        //aAccount = aCustomer.getAccounts()
+        //income.setMoneyTo(aAccount);
         income.setUser(aCustomer);
         System.out.println("Income add service: "+ income);
         incomeRepo.save(income);
