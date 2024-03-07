@@ -1,4 +1,4 @@
-/customers/{cid}/goals/{dateini}/{datefin}
+/customers/{cid}/goals/?date1={dataini}&date2={datefin}
 GET
 ->
 <- 200 Json, 404, 400, 412

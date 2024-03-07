@@ -17,6 +17,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -49,13 +51,19 @@ public class RestControllerCustomer {
 
     })
 
-    @GetMapping("/{cid}/goals/{dateini}/{datefin}")
+    @GetMapping("/{cid}/goals")
     public ResponseEntity<List<GoalApproximation>> generateReport(
             @PathVariable("cid") @Min(1) Long id,
-            @PathVariable("dateini") @DateTimeFormat LocalDate dateini,
-            @PathVariable("datefin") @DateTimeFormat LocalDate datefin
+            @RequestParam("dateini") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate dateini,
+            @RequestParam("datefin") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate datefin
 
     ) throws SQLException {
+
+        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+// formatter = formatter.withLocale( putAppropriateLocaleHere );  // Locale specifies human language for translating, and cultural norms for lowercase/uppercase and abbreviations and such. Example: Locale.US or Locale.CANADA_FRENCH
+       // LocalDate date = LocalDate.parse(dateini, formatter);
+        System.out.println("date +++++: " + dateini);
+
         return ResponseEntity.status(HttpStatus.OK).body(service.generateReport(id, dateini, datefin));
     }
 

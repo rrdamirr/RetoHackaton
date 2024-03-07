@@ -2,6 +2,7 @@ package com.banana.bananamint.domain;
 
 
 import com.banana.bananamint.exception.GoalException;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -55,6 +56,7 @@ public class Goal {
 
     @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
+    @JsonIgnore
     private Customer user;
 
     public boolean validarGoal() throws GoalException {
