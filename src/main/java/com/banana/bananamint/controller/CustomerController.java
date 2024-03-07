@@ -53,7 +53,7 @@ public class CustomerController {
         Account nuevo = serviceAcc.open(id, newAccount);
         if (nuevo != null && nuevo.getId() > 0) return new ResponseEntity<>(newAccount, HttpStatus.CREATED);
         else
-            return new ResponseEntity<>(new StatusMessage(HttpStatus.BAD_REQUEST.value(), "No encontrado"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new StatusMessage(HttpStatus.BAD_REQUEST.value(), "cuenta no creada"), HttpStatus.BAD_REQUEST);
 
     }
 
@@ -73,7 +73,7 @@ public class CustomerController {
         Expense nuevo = serviceIE.addExpense(id, newExpense);
         if (nuevo != null && nuevo.getId() > 0) return new ResponseEntity<>(newExpense, HttpStatus.CREATED);
         else
-            return new ResponseEntity<>(new StatusMessage(HttpStatus.BAD_REQUEST.value(), "No encontrado"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new StatusMessage(HttpStatus.BAD_REQUEST.value(), "gasto no creado"), HttpStatus.BAD_REQUEST);
 
     }
 }

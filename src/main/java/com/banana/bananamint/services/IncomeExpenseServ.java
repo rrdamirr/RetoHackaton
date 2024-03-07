@@ -45,7 +45,6 @@ public class IncomeExpenseServ implements IncomeExpenseService{
     public Expense addExpense(Long idCustomer, Expense expense) throws IncomeExpenseException {
         Customer customer = repoCustomer.findById(idCustomer).orElseThrow(() -> new CustomerException("Cliente no encontrado"));
 
-
         expense.setUser(customer);
 
         return repo.save(expense);
