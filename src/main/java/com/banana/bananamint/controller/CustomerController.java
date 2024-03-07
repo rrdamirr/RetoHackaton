@@ -22,11 +22,11 @@ import javax.validation.constraints.Min;
 
 
 @RestController
-@RequestMapping(value = "/account")
+@RequestMapping(value = "/customer")
 @Validated
-@Tag(name = "Accounts API", description = "Accounts management APIs")
-public class AccountsController {
-     private static final Logger logger = LoggerFactory.getLogger(AccountsController.class);
+@Tag(name = "customer API", description = "customer management APIs")
+public class CustomerController {
+     private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
 
     @Autowired
     AccountService service;
@@ -37,7 +37,7 @@ public class AccountsController {
             @ApiResponse(responseCode = "201", description = "Successfully created"),
             @ApiResponse(responseCode = "4XX", description = "Bad request")
     })
-    @PostMapping(value = "/customer/{cid}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/account/{cid}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity abrirCuenta(
             @Parameter(name = "id", description = "customer id", example = "1", required = true)
             @PathVariable("cid") @Min(1) Long id,
