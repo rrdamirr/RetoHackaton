@@ -2,6 +2,7 @@ package com.banana.bananamint.services;
 
 import com.banana.bananamint.domain.Customer;
 import com.banana.bananamint.domain.Goal;
+import com.banana.bananamint.payload.GoalApproximation;
 import com.banana.bananamint.persistence.GoalJPARepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -67,6 +69,18 @@ class GoalServiceClassTest {
             serviceGoal.add(1L, aGoal);
 
         });
+
+
+    }
+
+    @Test
+    void generateReportOK() throws SQLException {
+
+        List<GoalApproximation> listGoalsApp = serviceGoal.generateReport(4L,LocalDate.of(2024,04, 01), LocalDate.of(2024, 06, 30));
+
+        System.out.println("listGoals +++++ : " + listGoalsApp);
+
+        assertThat(listGoalsApp.size() > 0);
 
 
     }

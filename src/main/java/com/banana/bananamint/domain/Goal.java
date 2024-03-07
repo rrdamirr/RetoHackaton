@@ -24,26 +24,33 @@ public class Goal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Min(1)
-    @Schema(name = "Identificador goal", example = "1", required = false)
+    @Schema(name = "Identificator goal", example = "1", required = false)
     private Long id;
 
     @Size(min = 2, max = 60)
     @NotNull
     @NotBlank
+    @Schema(name = "name type goal", example = "Home", required = true)
     private String name;
 
     @Size(min = 2, max = 100)
     @NotNull
     @NotBlank
+    @Schema(name = "Description goal", example = "Gimnasio", required = true)
     private String description;
 
     @Min(1)
+    @Schema(name = "Target amount", example = "400.00", required = true)
     private double targetAmount;
 
+    @NotNull
+    @NotBlank
+    @Schema(name = "Status goal", example = "Finalizada", required = true)
     private String status;
 
     @DateTimeFormat
     @NotNull
+    @Schema(name = "Target date", example = "2024-05-31", required = true)
     private LocalDate targetDate;
 
     @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
@@ -51,7 +58,7 @@ public class Goal {
     private Customer user;
 
     public boolean validarGoal() throws GoalException {
-        if (this.targetDate != null && this.targetDate.compareTo(LocalDate.now()) <= 0)
+        if (this.targetDate != null && this.targetDate.compareTo(LocalDate.now()) >= 0)
             return true;
         else throw new GoalException("Target Date not valid");
     }

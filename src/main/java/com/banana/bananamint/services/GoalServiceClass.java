@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -32,22 +34,39 @@ public class GoalServiceClass implements GoalService {
     @Override
     public List<Goal> add(Long idCustomer, Goal goal) throws GoalException {
         Customer aCustomer = repoCustomer.findById(idCustomer).orElseThrow(() -> new CustomerException("Cliente no encontrado"));
-        boolean validGoal = goal.validarGoal();
 
-        if (validGoal) {
-            List<Goal> listGoals = aCustomer.getGoals();
-            goal.setUser(aCustomer);
-            listGoals.add(goal);
-            repoGoal.save(goal);
-            return listGoals;
-        } else throw new GoalException("Goal is not valid");
+        goal.validarGoal();
 
+        List<Goal> listGoals = aCustomer.getGoals();
+        goal.setUser(aCustomer);
+        listGoals.add(goal);
+        repoGoal.save(goal);
+
+        return listGoals;
 
     }
 
     @Override
-    public List<GoalApproximation> generateReport(Long idCustomer, LocalDate initDate, LocalDate finalDate) throws GoalException {
-        return null;
+    public List<GoalApproximation> generateReport(Long idCustomer, LocalDate initDate, LocalDate finalDate) throws GoalException, SQLException {
+        List<Goal> listGoals = repoGoal.findByUser_IdAndTargetDateBetween(idCustomer, initDate, finalDate);
+        GoalApproximation gApp = new GoalApproximation();
+        List<GoalApproximation> listRet = new ArrayList<>();
+
+        for (Goal nGoals : listGoals) {
+
+            gApp.setGoal(nGoals);
+            gApp.setTargetAmountDifference(1000.00 - nGoals.getTargetAmount());
+            if (gApp.getTargetAmountDifference() > 0) {
+                gApp.setTendency(1);
+            } else if (gApp.getTargetAmountDifference() == 0) {
+                gApp.setTendency(1);
+            } else gApp.setTendency(-1);
+
+            gApp.setEstimatedReachingTargetDate(nGoals.getTargetDate());
+            listRet.add(gApp);
+        }
+
+        return listRet;
     }
 
     @Override

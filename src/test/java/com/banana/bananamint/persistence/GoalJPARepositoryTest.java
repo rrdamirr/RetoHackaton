@@ -15,7 +15,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -65,7 +67,26 @@ class GoalJPARepositoryTest {
         });
     }
 
+    @Test
+    void findByCustomerAndDateOK() throws SQLException {
+
+        List<Goal> listGoals = jpaRepo.findByUser_IdAndTargetDateBetween(4L,LocalDate.of(2024,04, 01), LocalDate.of(2024, 06, 30));
+
+        System.out.println("listGoals +++++ : " + listGoals);
+
+        assertThat(listGoals.size() > 0);
 
 
+    }
+   @Test
+    void findByCustomerAndDateNOK() throws SQLException {
+
+      /*  Assertions.assertThrows(RuntimeException.class, () -> {
+            List<Goal> listGoals = jpaRepo.findByUser_IdAndTargetDateBetween(10L,LocalDate.of(2024,04, 01), LocalDate.of(2024, 06, 30));
+
+        });*/
+
+
+    }
 
 }

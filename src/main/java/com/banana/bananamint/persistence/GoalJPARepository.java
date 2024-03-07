@@ -13,5 +13,5 @@ public interface GoalJPARepository extends JpaRepository<Goal,Long> {
 
 //    public Goal save(Goal goal) throws SQLException;
 
-//    public List<Goal> findByCustomerAndDate(Long idCustomer, LocalDate initDate, LocalDate finalDate) throws SQLException;
+    public List<Goal> findByUser_IdAndTargetDateBetween(Long idCustomer, LocalDate initDate, LocalDate finalDate) throws SQLException;
 }

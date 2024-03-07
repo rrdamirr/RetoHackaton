@@ -5,6 +5,7 @@ import com.banana.bananamint.domain.Goal;
 import com.banana.bananamint.payload.GoalApproximation;
 import com.banana.bananamint.exception.GoalException;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public interface GoalService {
 
     public List<Goal> add(Long idCustomer, Goal goal) throws GoalException;
 
-    public List<GoalApproximation> generateReport(Long idCustomer, LocalDate initDate, LocalDate finalDate) throws GoalException;
+    public List<GoalApproximation> generateReport(Long idCustomer, LocalDate initDate, LocalDate finalDate) throws GoalException, SQLException;
 
     public List<Debt> accumulatedDebt(Long idCustomer, LocalDate initDate, LocalDate finalDate) throws GoalException;
 

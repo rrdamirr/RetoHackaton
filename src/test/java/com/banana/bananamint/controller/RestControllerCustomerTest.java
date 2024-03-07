@@ -1,6 +1,8 @@
 package com.banana.bananamint.controller;
 
 import com.banana.bananamint.domain.Goal;
+import com.banana.bananamint.payload.GoalApproximation;
+import org.apache.coyote.Response;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -25,14 +28,14 @@ import static org.junit.jupiter.api.Assertions.*;
 @AutoConfigureTestEntityManager
 class RestControllerCustomerTest {
 
-@Autowired
+    @Autowired
     private TestEntityManager entityManager;
 
     @Autowired
     private RestControllerCustomer controllerCustomer;
 
 
-@Test
+    @Test
     public void addGoalOK() {
         // given
         Goal aGoal = new Goal(null, "Ahorro", "Ahorro en mes de marzo", 300.00, "sataus", LocalDate.now(), null);
@@ -44,7 +47,6 @@ class RestControllerCustomerTest {
 
 
         // then
-        //assertThat(aProyecto.getId()).isGreaterThan(0);
         assertThat(response.getStatusCode().value())
                 .isEqualTo(HttpStatus.CREATED.value());
 
@@ -63,10 +65,30 @@ class RestControllerCustomerTest {
         // then
 
         Assertions.assertThrows(RuntimeException.class, () -> {
-            ResponseEntity<List<Goal>> response = controllerCustomer.addGoal(25L ,aGoal);
+            ResponseEntity<List<Goal>> response = controllerCustomer.addGoal(25L, aGoal);
 
         });
 
+    }
+
+    @Test
+    public void generateReportOK() throws SQLException {
+        // given
+
+        // when
+        ResponseEntity<List<GoalApproximation>> response = controllerCustomer.generateReport(4L,LocalDate.of(2024,04, 01), LocalDate.of(2024, 06, 30));
+
+        System.out.println("listGoalsApp ++++: " + response);
+
+
+        // then
+
+
+        assertThat(response.getStatusCode().value())
+                .isEqualTo(HttpStatus.OK.value());
+
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().size()).isGreaterThan(0);
     }
 
 }
