@@ -1,8 +1,7 @@
 package com.banana.bananamint.services;
 
-import com.banana.bananamint.domain.Account;
-import com.banana.bananamint.domain.Customer;
-import com.banana.bananamint.persistence.AccountJPARepository;
+import com.banana.bananamint.domain.Expense;
+import com.banana.bananamint.persistence.ExpenseJPARepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,51 +13,50 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 import java.time.LocalDate;
-import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 
 @ExtendWith(SpringExtension.class)
 @ComponentScan(basePackages = {"com.banana.bananamint.service"})
 @EnableAutoConfiguration
 @SpringBootTest
-class accountServTest {
+class IncomeExpenseServTest {
 
      @Autowired
-     private AccountService servicio;
+     private IncomeExpenseService servicio;
 
-      @Autowired
-     private AccountJPARepository repo;
+     @Autowired
+     private ExpenseJPARepository repo;
 
      @PersistenceContext
      EntityManager em;
 
     @Test
-    void open_ok(){
-        Account account = new Account(null, "Ahorro",LocalDate.now(),1500.00,1000.00,null,true, null, null);
-        System.out.println("account +++: " + account);
-        Account nAccount = servicio.open(1L, account);
-        System.out.println("nAccount +++: " + nAccount);
-        assertNotNull(nAccount);
-        assertThat(nAccount.getId(), greaterThan(0L));
-        assertEquals(nAccount.getType(),"Ahorro");
-        assertEquals(nAccount.getBalance(),1500.00);
-
+    void addExpense_ok() {
+        Expense expense = new Expense(null, null, 1500.00,LocalDate.now(),null, "pendiente");
+        System.out.println("expense +++: " + expense);
+        Expense nExpense = servicio.addExpense(1L, expense);
+        System.out.println("nExpense +++: " + nExpense);
+        assertNotNull(nExpense);
+        assertThat(nExpense.getId(), greaterThan(0));
+        assertEquals(nExpense.getStatus(),"pendiente");
+        assertEquals(nExpense.getAmount(),1500.00);
     }
 
     @Test
-    void open_nok(){
-        Account account = new Account(null, "A",LocalDate.now(),1500.00,1000.00,null,true, null, null);
+    void addExpense_nok(){
+        Expense expense = new Expense(null, null, 1500.00,LocalDate.now(),null, "p");
 
         Assertions.assertThrows(RuntimeException.class, () -> {
-            servicio.open(1L, account);
+            servicio.addExpense(1L, expense);
 
         });
 
     }
-
-
 }

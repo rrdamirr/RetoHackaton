@@ -45,10 +45,11 @@ public class AccountsController {
             @RequestBody @Valid Account newAccount
     ) {
         newAccount.setId(null);
+
         Account nuevo = service.open(id, newAccount);
         if (nuevo != null && nuevo.getId() > 0) return new ResponseEntity<>(newAccount, HttpStatus.CREATED);
         else
-            return new ResponseEntity<>(new StatusMessage(HttpStatus.BAD_REQUEST.value(), "No encontrado"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new StatusMessage(HttpStatus.NOT_FOUND.value(), "No encontrado"), HttpStatus.BAD_REQUEST);
 
     }
 }
