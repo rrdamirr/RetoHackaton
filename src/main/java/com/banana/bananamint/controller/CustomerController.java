@@ -25,8 +25,8 @@ import javax.validation.constraints.Min;
 @RequestMapping(value = "/account")
 @Validated
 @Tag(name = "Accounts API", description = "Accounts management APIs")
-public class AccountsController {
-     private static final Logger logger = LoggerFactory.getLogger(AccountsController.class);
+public class CustomerController {
+     private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
 
     @Autowired
     AccountService service;

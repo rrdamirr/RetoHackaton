@@ -1,7 +1,6 @@
 package com.banana.bananamint.controller;
 
 import com.banana.bananamint.domain.Account;
-import com.banana.bananamint.persistence.AccountJPARepository;
 import com.banana.bananamint.services.AccountService;
 import com.banana.bananamint.util.JsonUtil;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,12 +21,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(AccountsController.class)
-public class AccountsControllerTestMvc {
+@WebMvcTest(CustomerController.class)
+public class CustomerControllerTestMvc {
 
     @BeforeEach
     public void setUp() {
@@ -39,7 +36,7 @@ public class AccountsControllerTestMvc {
     }
 
     @Autowired
-    private AccountsController accountsController;
+    private CustomerController accountsController;
 
     @MockBean
     private AccountService service;
@@ -69,7 +66,7 @@ public class AccountsControllerTestMvc {
 
 
 //        when + then
-        mvc.perform(post("/account/customer/" + id)
+        mvc.perform(post("/customer/account/" + id)
                         .content(JsonUtil.asJsonString(nAccount))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
