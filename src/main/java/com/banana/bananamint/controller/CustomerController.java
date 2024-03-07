@@ -44,7 +44,7 @@ public class CustomerController {
     })
     @PostMapping(value = "/{cid}/account", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity openAccount(
-            @Parameter(name = "id", description = "customer id", example = "1", required = true)
+            @Parameter(name = "cid", description = "customer id", example = "1", required = true)
             @PathVariable("cid") @Min(1) Long id,
             @io.swagger.v3.oas.annotations.parameters.RequestBody(required = true, description = "Account data")
             @RequestBody @Valid Account newAccount
@@ -64,7 +64,7 @@ public class CustomerController {
     })
     @PostMapping(value = "/{cid}/expense", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity addExpense(
-            @Parameter(name = "id", description = "customer id", example = "1", required = true)
+            @Parameter(name = "cid", description = "customer id", example = "1", required = true)
             @PathVariable("cid") @Min(1) Long id,
             @io.swagger.v3.oas.annotations.parameters.RequestBody(required = true, description = "Expense data")
             @RequestBody @Valid Expense newExpense

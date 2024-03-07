@@ -25,6 +25,15 @@ public class IncomeExpenseServ implements IncomeExpenseService{
     @Autowired
     private CustomerJPARepository repoCustomer;
 
+     @Override
+    @Transactional
+    public Expense addExpense(Long idCustomer, Expense expense) throws IncomeExpenseException {
+        Customer customer = repoCustomer.findById(idCustomer).orElseThrow(() -> new CustomerException("Cliente no encontrado"));
+
+        expense.setUser(customer);
+
+        return repo.save(expense);
+    }
     @Override
     public List<Income> showAllIncomes(Long idCustomer) throws IncomeExpenseException {
         return null;
@@ -40,15 +49,7 @@ public class IncomeExpenseServ implements IncomeExpenseService{
         return null;
     }
 
-    @Override
-    @Transactional
-    public Expense addExpense(Long idCustomer, Expense expense) throws IncomeExpenseException {
-        Customer customer = repoCustomer.findById(idCustomer).orElseThrow(() -> new CustomerException("Cliente no encontrado"));
 
-        expense.setUser(customer);
-
-        return repo.save(expense);
-    }
 
     @Override
     public List<Income> showAllExpensesByDateRange(Long idCustomer, LocalDate initDate, LocalDate finalDate) throws IncomeExpenseException {
