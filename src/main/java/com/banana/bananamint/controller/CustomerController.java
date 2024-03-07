@@ -40,9 +40,9 @@ public class CustomerController {
     })
     @PostMapping(value = "/{cid}/account/{aid}/income", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity addIncome(
-            @Parameter(name = "id", description = "customer id", example = "1", required = true)
+            @Parameter(name = "cid", description = "customer id", example = "1", required = true)
             @PathVariable("cid") @Min(1) Long id,
-            @Parameter(name = "id", description = "account id", example = "1", required = true)
+            @Parameter(name = "aid", description = "account id", example = "1", required = true)
             @PathVariable("aid") @Min(1) Long aid,
             @io.swagger.v3.oas.annotations.parameters.RequestBody(required = true, description = "Income data")
             @RequestBody @Valid Income newIncome

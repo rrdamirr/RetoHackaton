@@ -21,10 +21,6 @@ import java.util.List;
 
 @Service
 public class IncomeExpenseServiceClass implements IncomeExpenseService {
-
-
-    private Logger logger = LoggerFactory.getLogger(AccountService.class);
-
     @Autowired
     private IncomeJPARepository incomeRepo;
 
@@ -37,12 +33,6 @@ public class IncomeExpenseServiceClass implements IncomeExpenseService {
     @Autowired
     private AccountJPARepository accountRepo;
 
-
-    @Override
-    public List<Income> showAllIncomes(Long idCustomer) throws IncomeExpenseException {
-        return null;
-    }
-
     @Override
     @Transactional
     public Income addIncome(Long idCustomer, Income income) throws IncomeExpenseException {
@@ -54,6 +44,14 @@ public class IncomeExpenseServiceClass implements IncomeExpenseService {
         System.out.println("Income add service: "+ income);
         incomeRepo.save(income);
         return income;
+    }
+    private Logger logger = LoggerFactory.getLogger(AccountService.class);
+
+
+
+    @Override
+    public List<Income> showAllIncomes(Long idCustomer) throws IncomeExpenseException {
+        return null;
     }
 
     @Override
