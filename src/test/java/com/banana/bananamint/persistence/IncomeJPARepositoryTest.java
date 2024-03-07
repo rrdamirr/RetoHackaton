@@ -1,5 +1,7 @@
 package com.banana.bananamint.persistence;
 
+import com.banana.bananamint.domain.Account;
+import com.banana.bananamint.domain.Customer;
 import com.banana.bananamint.domain.Income;
 import com.banana.bananamint.exception.IncomeExpenseException;
 import org.junit.jupiter.api.Assertions;
@@ -32,30 +34,33 @@ class IncomeJPARepositoryTest {
     private TestEntityManager eM;
 
     @Test
-    void addIncomeOK(){
+    void addIncomeOK() {
         // given
-        Income aIncome = new Income(null, null, 100.00, LocalDate.now(), null, "active");
+        Customer aCustomer = new Customer(1L);
+        Account aAccount = new Account(1L);
+
+        Income aIncome = new Income(null, aCustomer, 300.00, LocalDate.now(), aAccount, "active");
         // when
         incomeRep.save(aIncome);
-        System.out.println("Income add: "+ aIncome);
+        System.out.println("Income add: " + aIncome);
         // then
         assertNotNull(aIncome);
     }
 
     @Test
-    void addIncomeNOK(){
+    void addIncomeNOK() {
         // given
-        Income aIncome = new Income(null, null, 100.00, null, null, "active");
-        // when+then
+        Customer aCustomer = new Customer(1L);
+        Account aAccount = new Account(1L);
+        Income aIncome = new Income(null, aCustomer, 300.00, null, aAccount, "active");
 
+        // when+then
         //Assertions.assertThrows(IncomeExpenseException.class, () -> {
         Assertions.assertThrows(RuntimeException.class, () -> {
-            System.out.println("Income add: "+ aIncome);
+            System.out.println("Income add: " + aIncome);
             incomeRep.save(aIncome);
-
         });
     }
-
 
 
 }

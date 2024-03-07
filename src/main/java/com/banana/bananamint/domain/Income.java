@@ -27,7 +27,7 @@ public class Income {
     @Schema(name = "Identificador income", example = "1", required = false)
     private Integer Id;
 
-    @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
     private Customer user;
 
@@ -38,7 +38,7 @@ public class Income {
     @NotNull
     private LocalDate enterDate;
 
-    @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
     private Account moneyTo;
 

@@ -48,31 +48,31 @@ public class Customer {
     @Size(min = 9, max = 9)
     private String dni;
 
-    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "owner")
+    @OneToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY, mappedBy = "owner")
     @ToString.Exclude
     @JsonIgnore
     @Schema(name = "Customer accounts list", example = "model account", required = false)
     private List<Account> accounts;
 
-    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY, mappedBy = "user")
     @ToString.Exclude
     @JsonIgnore
     @Schema(name = "Customer budget list", example = "model budget", required = false)
     private List<Budget> budgets;
 
-    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY, mappedBy = "user")
     @ToString.Exclude
     @JsonIgnore
     @Schema(name = "Customer expense list", example = "model expense", required = false)
     private List<Expense> expenses;
 
-    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY, mappedBy = "user")
     @ToString.Exclude
     @JsonIgnore
     @Schema(name = "Customer income list", example = "model income", required = false)
     private List<Income> incomes;
 
-    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY, mappedBy = "user")
     @ToString.Exclude
     @JsonIgnore
     @Schema(name = "Customer goal list", example = "model goal", required = false)
@@ -95,6 +95,10 @@ public class Customer {
 
         return true;
 
+    }
+
+    public Customer(Long id) {
+        this.id = id;
     }
 
     private boolean validarEmail() {

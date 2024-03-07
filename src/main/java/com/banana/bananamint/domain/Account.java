@@ -17,11 +17,8 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
 @Entity
 @Table(name = "account")
-@ToString
 @Schema(name = "account", description = "Model account")
 public class Account {
 
@@ -38,13 +35,13 @@ public class Account {
 
     @DateTimeFormat
     @NotNull
-    LocalDate openingDate;
+    private LocalDate openingDate;
 
     private double balance;
 
     private double maxOverdraft;
 
-    @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
     private Customer owner;
 
@@ -52,17 +49,21 @@ public class Account {
     @BooleanFlag
     private boolean active;
 
-    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "moneyFrom")
+    @OneToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY, mappedBy = "moneyFrom")
     @ToString.Exclude
     @JsonIgnore
     @Schema(name = "Account expense list", example = "model expense", required = false)
     private List<Expense> expenses;
 
-    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "moneyTo")
+    @OneToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY, mappedBy = "moneyTo")
     @ToString.Exclude
     @JsonIgnore
     @Schema(name = "Account income list", example = "model expense", required = false)
     private List<Income> incomes;
+
+    public Account(Long id) {
+        this.id = id;
+    }
 
     private boolean validarFecha() {
         return this.openingDate != null && this.openingDate.compareTo(LocalDate.now()) <= 0;
