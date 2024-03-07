@@ -48,13 +48,13 @@ class CustomerControllerTestMvc {
     @Test
     void addIncome_OK() {
         // given
-        Customer aCustomer = new Customer(1L);
-        Account aAccount = new Account(1L);
+        Long cid= 1L;
+        Long aid= 1L;
 
         Income aIncome = new Income(null, null, 500.00, LocalDate.now(), null, "active");
 
         // when + then
-        ResponseEntity<Income> responseEntity = incomeController.addIncome(aCustomer.getId(), aAccount.getId(), aIncome);
+        ResponseEntity<Income> responseEntity = incomeController.addIncome(cid, aid, aIncome);
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.CREATED);
     }
 
@@ -62,12 +62,12 @@ class CustomerControllerTestMvc {
     void addIncome_OK2() throws Exception {
 
         // given
-        Customer aCustomer = new Customer(1L);
-        Account aAccount = new Account(1L);
+        Long cid= 1L;
+        Long aid= 1L;
         Income aIncome = new Income(null, null, 500.00, LocalDate.now(), null, "active");
 
         // when + then
-        mvc.perform(post("/customer"+aCustomer.getId()+"/account/"+aAccount.getId()+"/income")
+        mvc.perform(post("/customer"+cid+"/account/"+aid+"/income")
                         .content(JsonUtil.asJsonString(aIncome))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)

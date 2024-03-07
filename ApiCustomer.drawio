@@ -1,0 +1,16 @@
+<mxfile host="app.diagrams.net" modified="2024-03-07T10:44:09.638Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36" etag="xz6kNpDhZgw9wWlpuMYg" version="23.1.5" type="device">
+  <diagram name="Página-1" id="hVysNRHPYC1JOJ_7wGxp">
+    <mxGraphModel dx="1434" dy="790" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="jklClVFtODYGZi_2g86n-2" value="SERVICE CUSTOMER" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="297" y="210" width="166" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="jklClVFtODYGZi_2g86n-8" value="/customer/{cid}/account/{aid}/income&lt;br&gt;POST -&amp;gt; crear nueva&amp;nbsp;&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&#x9;=&amp;gt; json&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;lt;= 201 json, 400, 404, 422&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+          <mxGeometry x="260" y="250" width="260" height="190" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
