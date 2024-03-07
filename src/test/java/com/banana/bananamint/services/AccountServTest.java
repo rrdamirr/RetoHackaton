@@ -1,6 +1,7 @@
 package com.banana.bananamint.services;
 
 import com.banana.bananamint.domain.Account;
+import com.banana.bananamint.exception.AccountException;
 import com.banana.bananamint.persistence.AccountJPARepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -57,6 +58,7 @@ class AccountServTest {
         });
 
     }
+
 
 
 }

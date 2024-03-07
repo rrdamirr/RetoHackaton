@@ -1,7 +1,9 @@
 package com.banana.bananamint.controller;
 
 import com.banana.bananamint.domain.Account;
+import com.banana.bananamint.domain.Expense;
 import com.banana.bananamint.services.AccountService;
+import com.banana.bananamint.services.IncomeExpenseService;
 import com.banana.bananamint.util.JsonUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,17 +31,22 @@ public class CustomerControllerTestMvc {
     @BeforeEach
     public void setUp() {
         Account account = new Account(1L, "Ahorro", LocalDate.now(),1500.00,1000.00,null,true, null, null);
-        Mockito.when(service.open(Mockito.any(), Mockito.any()))
+        Mockito.when(serviceAc.open(Mockito.any(), Mockito.any()))
                 .thenReturn(account);
 
-
+        Expense expense = new Expense(1, null, 1500.00,LocalDate.now(),null, "pendiente");
+        Mockito.when(serviceIE.addExpense(Mockito.any(), Mockito.any()))
+                .thenReturn(expense);
     }
 
     @Autowired
-    private CustomerController accountsController;
+    private CustomerController customerController;
 
     @MockBean
-    private AccountService service;
+    private AccountService serviceAc;
+
+    @MockBean
+    private IncomeExpenseService serviceIE;
 
      @Autowired
     private MockMvc mvc;
@@ -53,7 +60,7 @@ public class CustomerControllerTestMvc {
         Account nAccount = new Account(null, "Ahorro", LocalDate.now(),1500.00,1000.00,null,true, null, null);
 
 //        when + then
-        ResponseEntity<Account> responseEntity = accountsController.abrirCuenta(id, nAccount);
+        ResponseEntity<Account> responseEntity = customerController.openAccount(id, nAccount);
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.CREATED);
     }
 
@@ -68,6 +75,37 @@ public class CustomerControllerTestMvc {
 //        when + then
         mvc.perform(post("/customer/account/" + id)
                         .content(JsonUtil.asJsonString(nAccount))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isCreated())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
+        ;
+    }
+
+    @Test
+    void addExpense_OK() {
+
+//        given
+        Long id= 1L;
+        Expense nExpense = new Expense(null, null, 1500.00,LocalDate.now(),null, "pendiente");
+
+//        when + then
+        ResponseEntity<Account> responseEntity = customerController.addExpense(id, nExpense);
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+    }
+
+    @Test
+    void addExpense_OK2() throws Exception {
+
+//        given
+        Long id = 1L;
+        Expense expense = new Expense(null, null, 1500.00,LocalDate.now(),null, "pendiente");
+
+
+//        when + then
+        mvc.perform(post("/customer/expense/" + id)
+                        .content(JsonUtil.asJsonString(expense))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                 )

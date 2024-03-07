@@ -69,7 +69,7 @@ public class Account {
     @Schema(name = "Account income list", example = "model expense", required = false)
     private List<Income> incomes;
 
-    private boolean validarFecha() {
+    public boolean validarFecha() {
         return this.openingDate != null && this.openingDate.compareTo(LocalDate.now()) <= 0;
     }
 
